@@ -95,7 +95,10 @@ app = FastAPI(title="LazyStud API")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # allow any frontend
+    allow_origins=[
+        "https://lazystud.vercel.app",
+        "https://lazystud-dd3jywub1-somesh891s-projects.vercel.app"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
