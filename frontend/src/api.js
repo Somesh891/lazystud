@@ -1,5 +1,5 @@
 // src/api.js
-const API_URL = "http://127.0.0.1:8000";
+const API_URL = "https://lazystud-backend.onrender.com";
 
 // ---------- AUTH ----------
 export async function signup({ username, email, password, role }) {
