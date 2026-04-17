@@ -168,30 +168,8 @@ def signup(user: UserSchema, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="Username already exists")
 
     # bcrypt 72‑byte limit
-    if len(user.password) > 72:
-        user.password = user.password[:72]
-
-    hashed_pw = pwd_context.hash(user.password)
-
-    new_user = User(
-        username=user.username,
-        email=user.email,
-        password=hashed_pw,
-        role=user.role,
-    )
-
-    try:
-        db.add(new_user)
-        db.commit()
-    except IntegrityError:
-        db.rollback()
-        raise HTTPException(
-            status_code=400, detail="Username or email already exists"
-        )
-
-    db.refresh(new_user)
-    return {"message": "User created successfully!"}
-
+    password = user.password.encode("utf-8")[:72]
+    hashed_pw = pwd_context.hash(password)
 
 @app.post("/login")
 def login(data: LoginSchema, db: Session = Depends(get_db)):
